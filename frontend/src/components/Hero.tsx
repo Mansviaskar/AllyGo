@@ -88,11 +88,11 @@ export function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
         >
           <button className="shimmer-btn bg-white text-zinc-950 hover:bg-zinc-200 rounded-full px-8 h-12 text-base font-medium shadow-lg shadow-white/10 inline-flex items-center justify-center">
-            Join Early Access
+            <a href="/auth">Join Early Access</a>
             <ArrowRight className="ml-2 w-4 h-4" />
           </button>
           <button className="rounded-full px-8 h-12 text-base font-medium border border-zinc-800 text-zinc-300 hover:bg-zinc-900 hover:text-white hover:border-zinc-700 bg-transparent inline-flex items-center justify-center">
-            Apply For Internship!
+            <a href="/auth">Apply For Internship!</a>
           </button>
         </motion.div>
 

@@ -1,18 +1,30 @@
 import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Navbar from './components/Navbar'
 import { Hero } from './components/Hero'
 import { Features } from './components/Features'
 import { Footer } from './components/Footer'
+import AuthPage from './components/Auth'
+import { ThemeProvider } from './contexts/theme-provider'
 
 function App() {
   return (
-    <>
-      <Navbar />
-      <Hero />
-      <Features />
-      <Footer />
-    </>
+    <ThemeProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Navbar />
+              <Hero />
+              <Features />
+              <Footer />
+            </>
+          } />
+          <Route path="/auth" element={<AuthPage />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   )
 }
 

@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 // import { Button } from "@/components/ui/button"
-
+import {ThemeToggle} from "../contexts/theme-toggle"
 const navItems = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
@@ -64,12 +64,13 @@ export default function Navbar() {
 
         {/* buttons */}
         <div className="hidden md:flex items-center gap-4">
+           <ThemeToggle />
           <button className="px-4 py-2 text-sm text-zinc-400 border border-zinc-700 rounded-full hover:text-white hover:bg-zinc-800 transition">
-            Sign In
+            <a href="/auth">Sign In</a>
           </button>
 
           <button className="px-4 py-2 text-sm bg-orange-500 text-white rounded-full hover:bg-orange-600 transition">
-            Get Started
+            <a href="/auth">Get Started</a>
           </button>
         </div>
 
@@ -104,10 +105,10 @@ export default function Navbar() {
             ))}
             <hr className="border-zinc-800 my-2" />
             <button className="w-full text-left px-4 py-2 text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-md transition">
-              Sign In
+              <a href="/auth">Sign In</a>
             </button>
             <button className="px-4 py-2 text-sm bg-orange-400 text-white rounded-full hover:bg-orange-600 transition">
-              Get Started
+              <a href="/auth">Get Started</a>
             </button>
           </div>
         </motion.div>
