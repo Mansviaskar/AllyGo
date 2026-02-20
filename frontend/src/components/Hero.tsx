@@ -2,15 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-// import { Button } from "@/components/ui/button"
 
-// const avatars = [
-//   "/professional-headshot-1.png",
-//   "/professional-headshot-2.png",
-//   "/professional-headshot-3.png",
-//   "/professional-headshot-4.png",
-//   "/professional-headshot-5.png",
-// ];
 
 const textRevealVariants = {
   hidden: { y: "100%" },
