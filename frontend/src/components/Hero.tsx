@@ -3,19 +3,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-
-const textRevealVariants = {
-  hidden: { y: "100%" },
-  visible: (i: number) => ({
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
-      delay: i * 0.1,
-    },
-  }),
-};
-
 export function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-4 pt-24 pb-16 overflow-hidden">
@@ -45,10 +32,9 @@ export function Hero() {
           <span className="block overflow-hidden">
             <motion.span
               className="block"
-              variants={textRevealVariants}
-              initial="hidden"
-              animate="visible"
-              custom={0}
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
             >
               AllyGo — Your Ally for<br></br>{" "}
               <span className="bg-gradient-to-r from-orange-400 via-orange-300 to-orange-600 bg-clip-text text-transparent">
