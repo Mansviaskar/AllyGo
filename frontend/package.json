@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist -r https://github.com/vrajsolanki2005/AllyGo.git"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
