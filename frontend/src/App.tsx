@@ -12,7 +12,7 @@ function App() {
     <ThemeProvider>
       <Router>
         <Routes>
-          <Route path="/AllyGo" element={
+          <Route path="/" element={
             <>
               <Navbar />
               <Hero />
