@@ -78,7 +78,7 @@ export function Hero() {
             <ArrowRight className="ml-2 w-4 h-4" />
           </button>
           <button className="rounded-full px-8 h-12 text-base font-medium border border-zinc-800 text-zinc-300 hover:bg-zinc-900 hover:text-white hover:border-zinc-700 bg-transparent inline-flex items-center justify-center">
-            <a href="/auth">Apply For Internship!</a>
+            <a href="/auth">Apply For Internship</a>
           </button>
         </motion.div>
 
