@@ -33,7 +33,7 @@ export function AuthForms({ mode, onToggleMode }: AuthFormsProps) {
     
     try {
       if (mode === "login") {
-        await login(formData.email, formData.password);
+        await login(formData.email);
       } else {
         await register({
           user_name: formData.name,

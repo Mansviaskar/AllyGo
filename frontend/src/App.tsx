@@ -8,41 +8,29 @@ import AuthPage from './components/Auth'
 import Dashboard from './components/Dashboard'
 import ProtectedRoute from './components/ProtectedRoute'
 import { ThemeProvider } from './contexts/theme-provider'
-import { AuthProvider, useAuth } from './contexts/AuthContext'
-
-function AppRoutes() {
-  const { isAuthenticated } = useAuth();
-
-  return (
-    <Routes>
-      <Route path="/" element={
-        isAuthenticated ? <Navigate to="/dashboard" replace /> : (
-          <>
-            <Navbar />
-            <Hero />
-            <Features />
-            <Footer />
-          </>
-        )
-      } />
-      <Route path="/auth" element={
-        isAuthenticated ? <Navigate to="/dashboard" replace /> : <AuthPage />
-      } />
-      <Route path="/dashboard" element={
-        <ProtectedRoute>
-          <Dashboard />
-        </ProtectedRoute>
-      } />
-    </Routes>
-  );
-}
+import { AuthProvider } from './contexts/AuthContext'
 
 function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <AppRoutes />
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Navbar />
+                <Hero />
+                <Features />
+                <Footer />
+              </>
+            } />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+          </Routes>
         </Router>
       </AuthProvider>
     </ThemeProvider>

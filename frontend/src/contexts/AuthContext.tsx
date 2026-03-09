@@ -1,9 +1,10 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User } from '../types/User';
+import { createContext, useContext, useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
+import type { User } from '../types/User';
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string) => Promise<void>;
   register: (userData: Partial<User>) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
@@ -22,7 +23,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string) => {
     // Check if user exists in localStorage
     const users = JSON.parse(localStorage.getItem('allygo_users') || '[]');
     const existingUser = users.find((u: User) => u.user_email === email);
