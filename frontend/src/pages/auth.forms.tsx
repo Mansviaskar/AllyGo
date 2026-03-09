@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-// import { Button } from '@/components/ui/button'
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import { Mail, Lock, User, ArrowRight, Eye, EyeOff } from "lucide-react";
 
 interface AuthFormsProps {
@@ -18,6 +19,8 @@ export function AuthForms({ mode, onToggleMode }: AuthFormsProps) {
     confirmPassword: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const { login, register } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,8 +30,25 @@ export function AuthForms({ mode, onToggleMode }: AuthFormsProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => setIsLoading(false), 1500);
+    
+    try {
+      if (mode === "login") {
+        await login(formData.email, formData.password);
+      } else {
+        await register({
+          user_name: formData.name,
+          user_email: formData.email,
+          course: "Computer Science",
+          specialization: "Software Engineering",
+          skills: []
+        });
+      }
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Auth error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
