@@ -45,7 +45,7 @@ export function AuthForms({ mode, onToggleMode }: AuthFormsProps) {
       }
       navigate("/dashboard");
     } catch (error) {
-      console.error("Auth error:", error);
+      alert(error instanceof Error ? error.message : 'Authentication failed');
     } finally {
       setIsLoading(false);
     }

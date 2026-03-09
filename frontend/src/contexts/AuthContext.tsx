@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
-import type { User } from '../types/User';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { User } from '../types/User';
 
 interface AuthContextType {
   user: User | null;
@@ -14,27 +14,38 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
+  // Load user from localStorage on mount
+  useEffect(() => {
+    const storedUser = localStorage.getItem('allygo_user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   const login = async (email: string, password: string) => {
-    // Mock login - replace with real API
-    const mockUser: User = {
-      user_id: '1',
-      user_name: 'John Doe',
-      user_email: email,
-      user_password: '',
-      user_role: 'student',
-      course: 'Computer Science',
-      specialization: 'Software Engineering',
-      skills: ['React', 'TypeScript'],
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    setUser(mockUser);
+    // Check if user exists in localStorage
+    const users = JSON.parse(localStorage.getItem('allygo_users') || '[]');
+    const existingUser = users.find((u: User) => u.user_email === email);
+    
+    if (!existingUser) {
+      throw new Error('User not found. Please register first.');
+    }
+    
+    // Store current user
+    localStorage.setItem('allygo_user', JSON.stringify(existingUser));
+    setUser(existingUser);
   };
 
   const register = async (userData: Partial<User>) => {
-    // Mock register - replace with real API
-    const mockUser: User = {
-      user_id: '1',
+    const users = JSON.parse(localStorage.getItem('allygo_users') || '[]');
+    
+    // Check if user already exists
+    if (users.find((u: User) => u.user_email === userData.user_email)) {
+      throw new Error('User already exists. Please login.');
+    }
+    
+    const newUser: User = {
+      user_id: Date.now().toString(),
       user_name: userData.user_name || '',
       user_email: userData.user_email || '',
       user_password: '',
@@ -45,10 +56,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       createdAt: new Date(),
       updatedAt: new Date()
     };
-    setUser(mockUser);
+    
+    // Save to users list
+    users.push(newUser);
+    localStorage.setItem('allygo_users', JSON.stringify(users));
+    
+    // Set as current user
+    localStorage.setItem('allygo_user', JSON.stringify(newUser));
+    setUser(newUser);
   };
 
-  const logout = () => setUser(null);
+  const logout = () => {
+    localStorage.removeItem('allygo_user');
+    setUser(null);
+  };
 
   return (
     <AuthContext.Provider value={{
