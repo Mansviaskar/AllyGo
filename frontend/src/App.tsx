@@ -20,7 +20,7 @@ function App() {
               <Footer />
             </>
           } />
-          <Route path="/AllyGo/auth" element={<AuthPage />} />
+          <Route path="/auth" element={<AuthPage />} />
         </Routes>
       </Router>
     </ThemeProvider>
