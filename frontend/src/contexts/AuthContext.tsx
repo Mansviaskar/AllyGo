@@ -7,6 +7,7 @@ interface AuthContextType {
   login: (email: string) => Promise<void>;
   register: (userData: Partial<User>) => Promise<void>;
   logout: () => void;
+  updateUser: (userData: Partial<User>) => Promise<void>;
   isAuthenticated: boolean;
 }
 
@@ -51,8 +52,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       user_email: userData.user_email || '',
       user_password: '',
       user_role: 'student',
+      university: userData.university || '',
       course: userData.course || '',
       specialization: userData.specialization || '',
+      year_of_graduation: userData.year_of_graduation,
       skills: userData.skills || [],
       createdAt: new Date(),
       updatedAt: new Date()
@@ -67,6 +70,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(newUser);
   };
 
+  const updateUser = async (userData: Partial<User>) => {
+    if (!user) return;
+    
+    const updatedUser = {
+      ...user,
+      ...userData,
+      updatedAt: new Date()
+    };
+    
+    // Update in users list
+    const users = JSON.parse(localStorage.getItem('allygo_users') || '[]');
+    const userIndex = users.findIndex((u: User) => u.user_id === user.user_id);
+    
+    if (userIndex !== -1) {
+      users[userIndex] = updatedUser;
+      localStorage.setItem('allygo_users', JSON.stringify(users));
+    }
+    
+    // Update current user
+    localStorage.setItem('allygo_user', JSON.stringify(updatedUser));
+    setUser(updatedUser);
+  };
+
   const logout = () => {
     localStorage.removeItem('allygo_user');
     setUser(null);
@@ -78,6 +104,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       login,
       register,
       logout,
+      updateUser,
       isAuthenticated: !!user
     }}>
       {children}
