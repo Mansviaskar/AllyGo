@@ -1,9 +1,23 @@
 import FeatureSlider from "../../components/dashboard/FeatureSlider";
+import MyProfileCard from "./MyProfileCard";
+import { useAuth } from "../../contexts/AuthContext";
 import { BookOpen, Briefcase, Users, Home, Bell } from "lucide-react";
 
 export default function Overview() {
+  const { user } = useAuth();
+
   return (
     <div className="space-y-10">
+
+{/* Profile Card */}
+<MyProfileCard
+  name={user?.user_name || "Guest User"}
+  isVerified={true}
+  rating={4.5}
+  completedTasks={23}
+  role={user?.user_role || "Student"}
+  skills={user?.skills || []}
+/>
 
 {/* Hero Section */}
 <div className="bg-gradient-to-r from-[#111] to-[#1a1a1a] border border-gray-800 rounded-xl min-h-[70vh] flex items-center justify-between px-12">
