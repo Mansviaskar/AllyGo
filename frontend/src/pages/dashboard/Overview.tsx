@@ -5,19 +5,28 @@ import { BookOpen, Briefcase, Users, Home, Bell } from "lucide-react";
 
 export default function Overview() {
   const { user } = useAuth();
+  const storedName = localStorage.getItem("userName");
+
+ 
+  const displayName =
+    user?.user_name && user.user_name !== "abc"
+      ? user.user_name
+      : storedName && storedName !== "abc"
+      ? storedName
+      : "Guest User";
 
   return (
     <div className="space-y-10">
 
-{/* Profile Card */}
-<MyProfileCard
-  name={user?.user_name || "Guest User"}
-  isVerified={true}
-  rating={4.5}
-  completedTasks={23}
-  role={user?.user_role || "Student"}
-  skills={user?.skills || []}
-/>
+      {/* Profile Card */}
+      <MyProfileCard
+        name={displayName}
+        isVerified={true}
+        rating={4.5}
+        completedTasks={23}
+        role={user?.user_role || "Student"}
+        skills={user?.skills || []}
+      />
 
 {/* Hero Section */}
 <div className="bg-gradient-to-r from-[#111] to-[#1a1a1a] border border-gray-800 rounded-xl min-h-[70vh] flex items-center justify-between px-12">
@@ -47,7 +56,7 @@ export default function Overview() {
 
   </div>
 
-  <div className="hidden md:block text-7xl">
+  <div className="hidden md:block text-9xl">
     🎓
   </div>
 

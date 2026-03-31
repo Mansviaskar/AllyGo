@@ -6,8 +6,8 @@ import { Hero } from "./components/Hero";
 import { Features } from "./components/Features";
 import { Footer } from "./components/Footer";
 
-import AuthPage from "./components/Auth";
-import ProtectedRoute from "./components/ProtectedRoute";
+import AuthPage from "./pages/AuthPage";
+// import ProtectedRoute from "./components/ProtectedRoute"; ❌ (disabled for now)
 
 import DashboardLayout from "./components/dashboard/DashboardLayout";
 
@@ -47,15 +47,8 @@ function App() {
             {/* Auth Page */}
             <Route path="/auth" element={<AuthPage />} />
 
-            {/* Dashboard Routes */}
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <DashboardLayout />
-                </ProtectedRoute>
-              }
-            >
+            {/* Dashboard Routes (NO ProtectedRoute for now) */}
+            <Route path="/dashboard" element={<DashboardLayout />}>
               <Route index element={<Overview />} />
               <Route path="posts" element={<MyPosts />} />
               <Route path="gigs" element={<MyGigs />} />

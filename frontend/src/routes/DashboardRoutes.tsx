@@ -12,6 +12,7 @@ import Settings from '../pages/dashboard/Settings';
 export const DashboardRoutes = () => {
   return (
     <Routes>
+      
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<Overview />} />
         <Route path="posts" element={<MyPosts />} />

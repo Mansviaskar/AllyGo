@@ -4,6 +4,16 @@ import { LogOut, User } from "lucide-react";
 export default function Topbar() {
   const { user, logout } = useAuth();
 
+  const storedName = localStorage.getItem("userName");
+
+  
+  const displayName =
+    user?.user_name && user.user_name !== "abc"
+      ? user.user_name
+      : storedName && storedName !== "abc"
+      ? storedName
+      : "Guest User";
+
   return (
     <div className="flex justify-between items-center p-5 border-b border-gray-800">
 
@@ -14,15 +24,13 @@ export default function Topbar() {
         </div>
 
         <div>
-        <h2 className="text-3xl font-bold text-white mb-2">
-            Welcome, {user?.user_name}!👋
-        </h2>
-        <p className="text-gray-400">
-          Manage your learning, gigs, and campus services with AllyGo.
-        </p>
+          <h2 className="text-3xl font-bold text-white mb-2">
+            Welcome, {displayName}! 👋
+          </h2>
+          <p className="text-gray-400">
+            Manage your learning, gigs, and campus services with AllyGo.
+          </p>
         </div>
-
-        
 
       </div>
 
